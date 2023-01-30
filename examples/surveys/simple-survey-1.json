@@ -1,0 +1,13 @@
+{
+    "instructions": "Fill out this survey and click the \"Complete\" button to download results.",
+    "linear": {
+        "description": "Please answer each of the questions.",
+        "q": [
+            {"id": "q1", "text": "I feel my team has effective communication with our advisor.", "desc": "Foo", "type": "rating"},
+            {"id": "q2", "text": "I feel my group is working well as a team.", "desc": "Foo", "type": "rating"},
+            {"id": "q3", "text": "What is your GPA?", "type": "number"},
+            {"id": "q4", "text": "I have had an engineering internship.", "type": "checkbox"},
+            {"id": "q5", "text": "If yes to Q4, please describe your experience.", "type": "longResponse"}
+        ]
+    }
+}

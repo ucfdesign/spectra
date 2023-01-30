@@ -1,0 +1,71 @@
+{
+    "instructions": "Fill out this survey and click the \"Complete\" button to download results. Submit the results via WebCourses.",
+    "linear": {
+        "description": "Please answer each of the questions.",
+        "q": [
+            {"id": "q1", "text": "I feel my team has effective communication with our advisor.", "desc": "Foo", "type": "rating"},
+            {"id": "q2", "text": "I feel my group is working well as a team.", "desc": "Foo", "type": "rating"},
+            {"id": "q3", "text": "What is your GPA?", "type": "number"},
+            {"id": "q4", "text": "I have had an engineering internship.", "type": "checkbox"},
+            {"id": "q5", "text": "If yes to Q4, please describe your experience.", "type": "longResponse"}
+        ]
+    },
+    "matrix": {
+        "description": "Please evaluate each of your peers for each dimension below. We ask that you also evaluate yourself.",
+        "x": [
+            {
+                "id": "none",
+                "label": "No Experience"
+            },
+            {
+                "id": "low",
+                "label": "Minimal experience"
+            },
+            {
+                "id": "med",
+                "label": "Some professional experience"
+            },
+            {
+                "id": "high",
+                "label": "Expert"
+            }
+        ],
+        "y": [
+            {
+                "id": "mcad", 
+                "label": "Mechanical CAD", 
+                "type": "checkbox"
+            },
+            {
+                "id": "fea", 
+                "label": "FEA / Structural Analysis", 
+                "type": "checkbox"
+            },
+            {
+                "id": "fluid", 
+                "label": "Fluid mechanics / CFD", 
+                "type": "checkbox"
+            },
+            {
+                "id": "dynamics", 
+                "label": "Dynamics, Vibrations, and Controls", 
+                "type": "checkbox"
+            },
+            {
+                "id": "circuit", 
+                "label": "Circuits and Electronics",
+                "type": "checkbox"
+            },
+            {
+                "id": "prog", 
+                "label": "Software / Computer Programming",
+                "type": "checkbox"
+            },
+            {
+                "id": "cmnt", 
+                "label": "Comments - Additional relevant skills", 
+                "type": "longResponse"
+            }
+        ]
+    }
+}
