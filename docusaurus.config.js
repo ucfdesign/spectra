@@ -9,7 +9,7 @@ const config = {
   title: 'Spectra',
   tagline: 'An organizational data tool suite',
   url: 'https://ucfdesign.github.io',
-  baseUrl: '/',
+  baseUrl: '/spectra',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
