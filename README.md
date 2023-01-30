@@ -2,6 +2,10 @@
 
 An organizational data engineering and analytics tool suite.
 
-- `spectra.core` - Core data engineering functionality (i.e. ingestion, storage, transformation, serving)
-- `spectra.analytics` - Data science and analytics
-- `spectr.*` - Performance focused capabilities in Rust
+- `doc` - Documentation
+- `src` - Source code
+    - `spectra` - The Spectra Python module
+        - `core`
+        - `cli`
+        - `analytics`
+    - `spectra-docs` - The source code for the docs site.

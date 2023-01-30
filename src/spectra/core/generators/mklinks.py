@@ -57,15 +57,14 @@ def generate_links(args):
             if len(link) > max_len:
                 max_len = len(link)
 
-            link = f"{team['name']} - {link}"
-            print(link, end='\n\n')
-            links.append(link)
+            print(f"{team['name']} - {link}", end='\n\n')
+            links.append(f'<li><a href="{link}">{team["name"]}</a></li>')
         
-        links = '\n- '.join(links)
+        links = '\n\n'.join(links)
         survey_id = args.survey.split(os.sep)[-1].split('.')[0]
-        with open(f'{args.section}/{survey_id}_links.md', 'w') as f:
+        with open(f'{args.section}/{survey_id}_links.html', 'w') as f:
             f.write('# Survey Links\n\n')
-            f.write(f'- {links}')
+            f.write(f'<ul>{links}</ul>')
     
     else:
         print('Generating link ...\n')
