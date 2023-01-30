@@ -81,7 +81,7 @@ const config = {
           },*/
           ,
           {
-            href: 'https://github.com/ucfdesign',
+            href: 'https://github.com/ucfdesign/spectra',
             label: 'GitHub',
             position: 'right',
           },
