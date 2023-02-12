@@ -6,6 +6,7 @@ from spectra import version
 from spectra.core.generators import init_command
 from spectra.core.generators import mklinks
 from spectra.core.generators import new_command
+from spectra.core import ingesters
 
 def main():
     # Initialize the parser and subparsers
@@ -35,6 +36,10 @@ def main():
     # spectra mklink
     parser_survey_links = subparsers.add_parser('mklink', help='Makes survey links')
     mklinks.build_parser(parser_survey_links)
+
+    # spectra ingest
+    parser_ingest = subparsers.add_parser('ingest', help="Ingest data")
+    ingesters.build_ingest_parser(parser_ingest)
 
     # Parse CLI args and execute default function
     args = parser.parse_args()
