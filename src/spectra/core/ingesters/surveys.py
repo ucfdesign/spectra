@@ -5,33 +5,43 @@ import json
 import os
 from rich import print as rprint
 
+def get_proc_dir_for_section(section):
+    return f'spectra-data/{section}/data/surveys/proc'
+
+def get_raw_dir_for_section(section):
+    return f'spectra-data/{section}/data/surveys/raw'
+
+
 # This is where we can add subcommand parser commands
 def build_ingest_surveys_parser(parser): 
     parser.set_defaults(func=surveys_ingester)
-    parser.add_argument('section_id', help='The section ID')
-    parser.add_argument('survey_id', help='The survey ID')
+    parser.add_argument('-s', '--section', required=True, help='The section ID')
+    parser.add_argument('-i', '-in', '--survey-id', required=True, help='The survey ID')
 
     
 # The surveys ingestion handler
 def surveys_ingester(args):
     rprint('[bold magenta]Ingesting surveys ...[/bold magenta]\n')
 
+    section = args.section
+    survey = args.survey_id
+
     indent_prefix = '[dim white]+[/dim white]'
     path_tag = lambda p: f'[dim yellow]{p}[/dim yellow]'
     h1 = lambda x: f'[bold blue]{x}[/bold blue]'
-    rprint(f'{indent_prefix} {h1("Reading form files")} for [bold white]{args.section_id}[/bold white] / [bold white]{args.survey_id} ...[/bold white]')
-    data, err, warn = read_survey_form_files(args.section_id, args.survey_id)
+    rprint(f'{indent_prefix} {h1("Reading form files")} for [bold white]{section}[/bold white] / [bold white]{args.survey_id} ...[/bold white]')
+    data, err, warn = read_survey_form_files(section, survey)
     rprint(f'  {indent_prefix} Successfully processed {len(data)} records.')
     rprint(f'  {indent_prefix} Failed to process {len(err)} records.')
 
     rprint(f'{indent_prefix} {h1("Storing processed records")} to disk ...')
-    dest = write_data_to_processed_file(args.section_id, args.survey_id, data)
+    dest = write_data_to_processed_file(section, survey, data)
     rprint(f'  {indent_prefix} Processed data written to {path_tag(dest)}')
-    dest = write_warnings_json_file(args.section_id, args.survey_id, data, err, warn)
+    dest = write_warnings_json_file(section, survey, data, err, warn)
     rprint(f'  {indent_prefix} Processed warnings written to {path_tag(dest)}')
 
     rprint(f'{indent_prefix} {h1("Writing logs")} and reports ...')
-    dest = write_processing_logs_file(args.section_id, args.survey_id, data, err, warn)
+    dest = write_processing_logs_file(section, survey, data, err, warn)
     rprint(f'  {indent_prefix} Processed logs written to {path_tag(dest)}')
 
     rprint('\n[bold green]Complete.[/bold green]')
@@ -43,14 +53,16 @@ def surveys_ingester(args):
     
 
 def write_warnings_json_file(section, survey, data, err, warn):
-    filename = f'.spectra-data/data/{section}/proc/{survey}.warnings.json'
+    proc_dir = get_proc_dir_for_section(section)
+    filename = os.path.join(proc_dir, f'{survey}.warnings.json')
     with open(filename, 'w') as f:
         f.write(json.dumps(warn, indent=4))
     return filename
 
 
 def write_processing_logs_file(section, survey, data, err, warn):
-    filename    = f'.spectra-data/data/{section}/proc/{survey}.logs.md'
+    proc_dir    = get_proc_dir_for_section(section)
+    filename    = os.path.join(proc_dir, f'{survey}.logs.md')
     successes   = len(data)
     failures    = len(err)
     total       = successes + failures
@@ -58,7 +70,7 @@ def write_processing_logs_file(section, survey, data, err, warn):
     warn_late   = [ w for w in warn if w['type'] == 'LATE' ]
     noncompliance = len(warn_nosub) + len(warn_late)
 
-    with open( f'.spectra-data/sections/{section}/roster.json') as f:
+    with open( f'spectra-data/{section}/roster.json') as f:
         roster = json.load(f)
     total_people = len(roster['CanvasIndex'].keys())
     noncomp_rate  = (noncompliance / total_people) * 100
@@ -88,7 +100,8 @@ def write_processing_logs_file(section, survey, data, err, warn):
 
 
 def write_data_to_processed_file(section, survey, data):
-    filename = f'.spectra-data/data/{section}/proc/{survey}.records.json'
+    proc_dir = get_proc_dir_for_section(section)
+    filename = os.path.join(proc_dir, f'{survey}.records.json')
     with open(filename, 'w') as f:
         f.write(json.dumps(data, indent=4))
     return filename
@@ -98,10 +111,10 @@ def read_survey_form_files(section, survey):
     result    = []
     err       = []
     warn      = []
-    directory = f'.spectra-data/data/{section}/raw/{survey}'
+    directory = os.path.join(get_raw_dir_for_section(section), f'{survey}')
     done      = {}
 
-    roster_file = f'.spectra-data/sections/{section}/roster.json'
+    roster_file = f'spectra-data/{section}/roster.json'
     with open(roster_file) as f:
         roster = json.load(f)
 
@@ -194,7 +207,6 @@ def make_record(filename, section, date_str, user_id, data, roster, key, value):
             return record
     return None
     
-
 
 def extract_linear_question_metadata(key, data, filename):
     question_id = key.split('_')[1]

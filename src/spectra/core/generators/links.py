@@ -5,18 +5,21 @@ import os
 import zlib
 import urllib.parse
 
+
 def decode_base64_and_inflate(b64string):
     decoded_data = base64.b64decode( b64string )
     return zlib.decompress( decoded_data , -15)
+
 
 def deflate_and_base64_encode(bytes):
     zlibbed_str = zlib.compress(bytes.encode('ascii'))
     compressed_string = zlibbed_str[2:-4]
     return base64.b64encode(compressed_string).decode('ascii')
 
-def build_parser(parser):
-    parser.add_argument('-s', '--survey', required=True)
-    parser.add_argument('--section', required=False)
+
+def build_links_parser(parser):
+    parser.add_argument('-i', '--survey', required=True)
+    parser.add_argument('-s', '--section', required=False)
     parser.add_argument('-b', '--base-url', required=False, default='https://surveyor-next.apps.triple.engineering/survey.html')
     parser.set_defaults(func=generate_links)
     return
@@ -24,7 +27,7 @@ def build_parser(parser):
 
 def main():
     parser = argparse.ArgumentParser()
-    build_parser(parser)
+    build_links_parser(parser)
     args = parser.parse_args()
     generate_links(args)
 
@@ -32,7 +35,7 @@ def main():
 def generate_links(args):
     survey = json.load(open(args.survey))
     if args.section:
-        roster = json.load(open(f'{args.section}/roster.json'))
+        roster = json.load(open(f'spectra-data/{args.section}/roster.json'))
 
         print('Generating links ...')
         max_len = 0
@@ -62,8 +65,7 @@ def generate_links(args):
         
         links = '\n\n'.join(links)
         survey_id = args.survey.split(os.sep)[-1].split('.')[0]
-        with open(f'{args.section}/{survey_id}_links.html', 'w') as f:
-            f.write('# Survey Links\n\n')
+        with open(f'spectra-data/{args.section}/outputs/{survey_id}_links.html', 'w') as f:
             f.write(f'<ul>{links}</ul>')
     
     else:
@@ -74,9 +76,8 @@ def generate_links(args):
         link = f'{args.base_url}?data={url_safe_string}'
         max_len = len(link)
         print(link)
-
-
     print(f'\nMax URL length is {max_len}')
+
 
 if __name__ == '__main__':
     main()

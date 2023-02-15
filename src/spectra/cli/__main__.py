@@ -3,9 +3,9 @@ from rich import print as rprint
 from .ascii_art import get_logo
 
 from spectra import version
-from spectra.core.generators import init_command
-from spectra.core.generators import mklinks
-from spectra.core.generators import new_command
+from spectra.core.commands import init_command
+from spectra.core.commands import new_command
+from spectra.core.commands import transform_command
 from spectra.core import ingesters
 
 def main():
@@ -33,13 +33,13 @@ def main():
     parser_new = subparsers.add_parser('new', help="Create new objects")
     new_command.build_new_parser(parser_new)
 
-    # spectra mklink
-    parser_survey_links = subparsers.add_parser('mklink', help='Makes survey links')
-    mklinks.build_parser(parser_survey_links)
-
     # spectra ingest
     parser_ingest = subparsers.add_parser('ingest', help="Ingest data")
     ingesters.build_ingest_parser(parser_ingest)
+
+    # spectra transform
+    parser_transform = subparsers.add_parser('transform', help="Transform data")
+    transform_command.build_transform_parser(parser_transform)
 
     # Parse CLI args and execute default function
     args = parser.parse_args()

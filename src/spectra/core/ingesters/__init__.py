@@ -1,4 +1,4 @@
-from .surveys import build_ingest_surveys_parser, surveys_ingester
+from .surveys import build_ingest_surveys_parser
 
 
 def build_ingest_parser(parser):
@@ -10,7 +10,6 @@ def build_ingest_parser(parser):
     parser_ingest_surveys = subparsers.add_parser('surveys', help='Ingest survey files')
     build_ingest_surveys_parser(parser_ingest_surveys)
     
-
 
 def default_ingest_handler(args):
      print("Invalid command. Run 'spectra ingest --help' for more info.")

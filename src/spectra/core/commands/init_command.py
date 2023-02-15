@@ -7,6 +7,11 @@ def build_init_parser(parser):
 
 def init_handler(args):
     rprint('[cyan bold]Initializing[/cyan bold] spectra project ...', end=' ')
-    os.mkdir('.spectra-data')
+    os.mkdir('.spectra')
+    os.mkdir('spectra-data')
+    os.mkdir('surveys')
+    os.mkdir('analysis')
+    os.mkdir('reports')
+    os.mkdir('experiments')
     rprint('[green bold]OK[/green bold]')
     print('')
