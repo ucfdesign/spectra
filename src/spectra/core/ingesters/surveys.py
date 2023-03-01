@@ -164,7 +164,7 @@ def read_survey_form_files(section, survey):
         if canvas_id not in done:
             warn.append({
                 'type': 'NOT_SUBMITTED',
-                'message': f'No submission from **{person["name"]}**, {team}.',
+                'message': f'No submission from **{person["name"]}**, {person["team"]}.',
                 'dt': date_str,
                 'name': person['name'],
                 'person_id': user_id,
@@ -240,12 +240,12 @@ def extract_matrix_question_metadata(key, data, roster, filename):
 
 
 def extract_answer_metadata(value):
-    if isinstance(value, int) or isinstance(value, float):
+    if value  == True or value == False:
+        return {'answer_bool': value, 'answer_type': 'Boolean', 'answer': str(value)}
+    elif isinstance(value, int) or isinstance(value, float):
         return {'answer_number': value, 'answer_type': 'Number', 'answer': str(value)}
     elif isinstance(value, str):
         return {'answer_string': value, 'answer_type': 'String', 'answer': str(value)}
-    elif isinstance(value, bool):
-        return {'answer_bool': value, 'answer_type': 'Boolean', 'answer': str(value)}
     elif value is None:
         return {'answer_type': 'Null', 'answer': str(value)}
     else:

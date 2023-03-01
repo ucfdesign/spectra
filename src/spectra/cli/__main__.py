@@ -6,6 +6,7 @@ from spectra import version
 from spectra.core.commands import init_command
 from spectra.core.commands import new_command
 from spectra.core.commands import transform_command
+from spectra.core.commands import analyzer_command
 from spectra.core import ingesters
 
 def main():
@@ -40,6 +41,10 @@ def main():
     # spectra transform
     parser_transform = subparsers.add_parser('transform', help="Transform data")
     transform_command.build_transform_parser(parser_transform)
+
+    # spectra analyze
+    parser_analyze = subparsers.add_parser('analyze', help="Analyze data")
+    analyzer_command.build_analyze_parser(parser_analyze)
 
     # Parse CLI args and execute default function
     args = parser.parse_args()

@@ -4,9 +4,8 @@ import json
 def build_transform_survey_parser(parser):
     parser.set_defaults(func=survey_transformer)
     parser.add_argument('-s', '--section', required=True, help='The section ID')
-    parser.add_argument('-in', '--survey-id', required=True, help='The survey ID')
+    parser.add_argument('-i', '-in', '--survey-id', required=True, help='The survey ID')
     parser.add_argument('-o', '--output', required=True, choices=['csv'], help='The output format')
-    
 
 
 def get_proc_dir_for_section(section):
