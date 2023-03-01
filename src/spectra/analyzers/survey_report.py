@@ -62,7 +62,6 @@ class SurveyReport:
         print(f'evdoc spectra-data/{args.section}/outputs/{report_name}')
         print('')
 
-
     @classmethod
     def process_team_records(cls, team_id, team, records, output_dir):
         result = ''
@@ -81,11 +80,8 @@ class SurveyReport:
         result += '\n'
 
         result += '\n\n### Peer Evaluation Averages\n\n'
-
         result += SurveyReport.generate_team_report(team_id, team, records, output_dir)
-
         result += '\n\n$\pagebreak$\n\n'
-
         result += '\n\n### Peer Review Breakdown\n\n'
 
         questions = {
@@ -133,7 +129,6 @@ class SurveyReport:
                     result += f'| {name} | {comment} |\n'
 
         return result
-    
 
     @staticmethod
     def generate_team_report(team_id, team, records, output_dir, question=None, label='Average'):
@@ -207,12 +202,10 @@ class SurveyReport:
         markdown += f'![{label}](./assets/{fname})'
         return markdown
     
-
     @staticmethod
     def sort(x):
         return 'prof' > 'attp' > 'qnty' > 'qlty' > 'comm' > 'tmwk' > 'cmnt'
         
-
     @staticmethod
     def filter_by_team_id(team_id):
         def fun(record):
@@ -236,8 +229,6 @@ class SurveyReport:
         parser.add_argument('-s', '--section', required=True, help='The section ID')
         parser.add_argument('-i', '-in', '--survey-id', required=True, help='The survey ID')
 
-
-    
     @staticmethod
     def get_document_yaml():
         return f''

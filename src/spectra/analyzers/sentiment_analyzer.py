@@ -20,8 +20,6 @@ class SentimentAnalyzer:
         parser.add_argument('-s', '--section', required=True, help='The section ID')
         parser.add_argument('-i', '-in', '--survey-id', required=True, help='The survey ID')
 
-
-
     @staticmethod
     def run(args):
         # Print consoler header ingo
@@ -30,7 +28,6 @@ class SentimentAnalyzer:
         survey = f'[yellow]{args.survey_id}[/yellow]'
         h2 = f'[bold white]Analyzing survey {section} / {survey} ...[/bold white]'
         rprint(f'\n{h1} - {h2}\n')
-
 
         # The section root path
         section_path = os.path.join('spectra-data', args.section)
@@ -76,7 +73,6 @@ class SentimentAnalyzer:
         lda = LatentDirichletAllocation(n_components=5, random_state=42)
         topic_model = lda.fit_transform(counts)
         df['topic'] = topic_model.argmax(axis=1)
-
 
         # Sort the sentiment scores in descending order
         df_sorted = df.sort_values('sentiment', ascending=False)
