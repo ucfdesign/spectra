@@ -126,7 +126,8 @@ class SurveyReport:
                     result += '|:--|:--------|\n'
                     last_peer = peer_name
                 for comment in group_data['answer']:
-                    result += f'| {name} | {comment} |\n'
+                    sanitized_comment = comment.replace('\n', ' ').replace('|', ' ')
+                    result += f'| {name} | {sanitized_comment} |\n'
 
         return result
 
