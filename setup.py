@@ -16,6 +16,7 @@ with open('./README.md') as fh:
 with open('./src/spectra/__init__.py') as fh:
     version_line = [ ln for ln in fh.read().splitlines() if ln.startswith('version = ') ][0]
     version = version_line.split(' = ')[-1]
+    version = version.replace("'", '')
 
 #with open('./requirements.txt') as f:
 #    requirements = f.read().splitlines()

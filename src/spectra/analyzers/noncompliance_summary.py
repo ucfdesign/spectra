@@ -37,6 +37,7 @@ class NonComplianceSummarizer:
         # Aggregate all the warnings into one list
         all_warnings = []
         for filepath in warnings_files:
+            print(filepath)
             data = json.load(open(filepath))
             all_warnings += data
 

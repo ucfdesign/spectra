@@ -11,6 +11,15 @@ An organizational data engineering and analytics tool suite.
     - `spectra-docs` - The source code for the docs site.
 
 
+## Mac Setup
+
+```
+pip install rich numpy matplotlib pandas
+brew install pandoc
+brew install basictex
+pip install -e .
+```
+
 ## TODO
 
 [] Spectra transform survey -in survey_id -o pdf 

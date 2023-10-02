@@ -82,8 +82,10 @@ class SurveyReport:
         result += '\n\n### Peer Evaluation Averages\n\n'
         result += SurveyReport.generate_team_report(team_id, team, records, output_dir)
         result += '\n\n$\pagebreak$\n\n'
-        result += '\n\n### Peer Review Breakdown\n\n'
 
+        """
+        
+        result += '\n\n### Peer Review Breakdown\n\n'
         questions = {
             'prof': 'Professionalism', 
             'attp': 'Attendance and Preparedness', 
@@ -101,9 +103,8 @@ class SurveyReport:
             # Add newline after every two images
             if q in ['attp', 'qlty', 'tmqk']:
                 result += '|\n'
-
         result += '\n\n$\pagebreak$\n\n'
-
+        """
         
         # Create a comments data frame and group for printing
         comments = [r for r in records if r['group_id'] == team_id and r['question_id'] == 'cmnt']
@@ -122,12 +123,14 @@ class SurveyReport:
                 peer_name, name = group_name
                 if last_peer != peer_name:
                     result += f'\n\n**Feedback for {peer_name}**\n\n'
-                    result += '| Reviewer |  Comment |\n'
-                    result += '|:--|:--------|\n'
+                    #result += '| Reviewer |  Comment |\n'
+                    #result += '|:--|:--------|\n'
+                    result += "\n"
                     last_peer = peer_name
                 for comment in group_data['answer']:
                     sanitized_comment = comment.replace('\n', ' ').replace('|', ' ')
-                    result += f'| {name} | {sanitized_comment} |\n'
+                    #result += f'| {name} | {sanitized_comment} |\n'
+                    result += f'- **Feedback from {name}:** {sanitized_comment} \n'
 
         return result
 
