@@ -41,6 +41,7 @@ class SurveyReport:
         with open(records_path) as f:
             records = json.load(f)
 
+        # Process records by team
         teams = roster['Teams']
         markdown = '# Results by Team\n'
         sorted_teams = sorted(teams.items(), key=lambda x: x[1]['name'])
@@ -84,7 +85,6 @@ class SurveyReport:
         result += '\n\n$\pagebreak$\n\n'
 
         """
-        
         result += '\n\n### Peer Review Breakdown\n\n'
         questions = {
             'prof': 'Professionalism', 
@@ -203,7 +203,7 @@ class SurveyReport:
         plt.savefig(fpath, format="png")
         plt.close()
 
-        markdown += f'![{label}](./assets/{fname})'
+        markdown += f'![{label} for {team["name"]}](./assets/{fname})'
         return markdown
     
     @staticmethod

@@ -2,7 +2,7 @@
 
 ## Create a New Section
 
-1. [Download your course roster from Canvas](/docs/how-to/download-canvas-roster) or [create a roster](/docs/how-to/create-a-roster-file-without-canvas).
+1. [Download your course roster from Canvas](/docs/how-to/roster-files) or [create a roster](/docs/how-to/roster-files).
 1. Create a new Spectra *section* by running `spectra new section -r <path/to/your/roster.csv> -s <section_name>`, replacing the items in `<...>` with 
 your roster path and section name. The section name is up to you, but should only contain letters, numbers, dashes, and underscores.
 

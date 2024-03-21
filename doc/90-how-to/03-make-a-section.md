@@ -24,12 +24,10 @@ be an employee ID.
 - **Group ID** - This is the Canvas group ID for the team. It is a string and is
 used by Spectra as the unique identified of the group.
 
-
-
 To make a new section, run:
 
 ```
-spectra new section -r <path/to/your/roster.csv> --name <section-name>
+spectra new section -r <path/to/your/roster.csv> -s <section-name>
 ```
 
 Replace `<path/to/your/roster.csv>` with the path to your roster file and 
