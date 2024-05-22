@@ -20,7 +20,7 @@ def deflate_and_base64_encode(bytes):
 def build_links_parser(parser):
     parser.add_argument('-i', '--survey', required=True)
     parser.add_argument('-s', '--section', required=False)
-    parser.add_argument('-b', '--base-url', required=False, default='https://surveyor-next.apps.triple.engineering/survey.html')
+    parser.add_argument('-b', '--base-url', required=False, default='http://localhost:3000')
     parser.set_defaults(func=generate_links)
     return
 
