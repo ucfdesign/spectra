@@ -1,5 +1,8 @@
 # Spectra
 
+> This repository was archived in 3 January 2026 as it is not being actively maintained.
+
+
 An organizational data engineering and analytics tool suite.
 
 - `doc` - Documentation
